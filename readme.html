@@ -5,84 +5,215 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
   <title>README — Frogger PWA (Tributo 1981)</title>
   <style>
-    :root{--bg:#0a1228;--ink:#e9f1ff;--muted:#9db0d0;--card:#0f1834}
+    :root{--bg:#0a1228;--ink:#e9f1ff;--muted:#9db0d0;--card:#0f1834;--line:#1a2655;--accent:#2dd36f}
     *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial;padding:16px}
-    header{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-    h1{margin:0}
-    nav button{border:1px solid #263159;background:#111a3a;color:var(--ink);border-radius:999px;padding:8px 12px;font-weight:600}
-    section{margin-top:16px;background:var(--card);border:1px solid #1a2655;border-radius:12px;padding:16px}
-    h2{margin-top:0}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial}
+    a{color:#8ac6ff;text-decoration:none}
+    a:hover{text-decoration:underline}
+    /* Fixed top bar */
+    .top{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:10px;padding:10px 12px;background:linear-gradient(180deg,#0d1736,#0b1330);border-bottom:1px solid var(--line)}
+    .top .spacer{flex:1}
+    .btn{border:1px solid #263159;background:#111a3a;color:var(--ink);border-radius:999px;padding:8px 14px;font-weight:700;cursor:pointer;white-space:nowrap}
+    .btn.play{background:var(--accent);color:#07120a;border-color:#1daa5b}
+    select.lang{border:1px solid #263159;background:#111a3a;color:var(--ink);border-radius:999px;padding:8px 12px;font-weight:700}
+    /* Content */
+    .wrap{padding:14px;max-width:900px;margin:0 auto}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
+    h1{margin:0;font-size:20px}
+    h2{margin:8px 0 6px;font-size:18px}
+    h3{margin:8px 0 4px;font-size:16px}
+    ul{margin:8px 0 8px 18px}
     .muted{color:var(--muted)}
-    .two{display:grid;grid-template-columns:1fr;gap:12px}
-    @media(min-width:820px){.two{grid-template-columns:1fr 1fr}}
-    a{color:#8ac6ff}
+    .grid2{display:grid;grid-template-columns:1fr;gap:12px}
+    @media(min-width:860px){.grid2{grid-template-columns:1fr 1fr}}
+    code{background:#0c142e;border:1px solid #182550;border-radius:6px;padding:1px 6px}
   </style>
 </head>
 <body>
-<header>
-  <h1>🐸 Frogger — PWA (Tributo 1981)</h1>
-  <nav>
-    <button onclick="setLang('it')">IT</button>
-    <button onclick="setLang('en')">EN</button>
-  </nav>
-  <div class="muted">© 2025 pezzaliAPP — MIT — Tributo didattico, non affiliato a Konami.</div>
-</header>
+  <div class="top">
+    <strong>🐸 Frogger — PWA (Tributo 1981)</strong>
+    <div class="spacer"></div>
+    <a class="btn play" href="index.html" rel="noopener">▶︎ PLAY</a>
+    <label for="lang" class="muted" style="margin-left:6px">Lingua</label>
+    <select id="lang" class="lang" onchange="setLang(this.value)">
+      <option value="it" selected>Italiano</option>
+      <option value="en">English</option>
+    </select>
+  </div>
 
-<div class="two">
-<section id="it">
-  <h2>Come si gioca</h2>
-  <ul>
-    <li>Obiettivo: porta la rana nelle <strong>5 tane</strong> in alto attraversando <em>strada</em> e <em>fiume</em>.</li>
-    <li>Controlli: <strong>D‑Pad</strong> su schermo o <strong>swipe</strong> (su/giù/sinistra/destra). Tastiera WASD / frecce su laptop.</li>
-    <li>Pausa: pulsante <strong>Pausa</strong> o <strong>Spazio/Invio</strong>.</li>
-    <li>Audio: si attiva dopo il primo tap per limiti di iOS.</li>
-  </ul>
-  <h2>Novità di questa versione</h2>
-  <ul>
-    <li><strong>Tartarughe che si immergono</strong>: quando sono sott’acqua non sono sicure!</li>
-    <li><strong>Mosca bonus</strong> nelle tane libere (vale +100 pt, scompare dopo pochi secondi).</li>
-    <li><strong>Timer per vita</strong>: se finisce il tempo, perdi una vita.</li>
-    <li><strong>Hi‑Score locale</strong> salvato in <code>localStorage</code>.</li>
-    <li><strong>Ottimizzazione mobile</strong>: PWA, offline-ready, full‑screen su iPhone.</li>
-  </ul>
-  <h2>Installazione</h2>
-  <ol>
-    <li>Metti i file su una cartella del tuo sito (es. <code>/FroggerPWA/</code>).</li>
-    <li>Apri l’indirizzo sullo smartphone → Condividi → <strong>Aggiungi alla Home</strong>.</li>
-    <li>Apri l’app e tocca <strong>Play</strong>.</li>
-  </ol>
-</section>
+  <div class="wrap">
+    <div id="it">
+      <div class="card">
+        <h2>Obiettivo</h2>
+        <p>Porta la rana nelle <strong>5 tane</strong> in alto attraversando <em>strada</em> e <em>fiume</em>. Completa le 5 tane per passare al livello successivo.</p>
+      </div>
 
-<section id="en" style="display:none">
-  <h2>How to play</h2>
-  <ul>
-    <li>Goal: reach the <strong>5 home slots</strong> at the top by crossing the <em>road</em> and the <em>river</em>.</li>
-    <li>Controls: on‑screen <strong>D‑Pad</strong> or <strong>swipe</strong>. Keyboard WASD / arrows on laptop.</li>
-    <li>Pause: tap <strong>Pause</strong> or press <strong>Space/Enter</strong>.</li>
-    <li>Audio: enabled after the first tap due to iOS policies.</li>
-  </ul>
-  <h2>What’s new here</h2>
-  <ul>
-    <li><strong>Sinking turtles</strong>: unsafe while submerged.</li>
-    <li><strong>Bonus fly</strong> may appear in empty home slots (+100 pts, short lived).</li>
-    <li><strong>Per‑life timer</strong>: time out costs one life.</li>
-    <li><strong>Local hi‑score</strong> stored in <code>localStorage</code>.</li>
-    <li><strong>Mobile‑first PWA</strong>: offline‑ready, iPhone full‑screen.</li>
-  </ul>
-  <h2>Install</h2>
-  <ol>
-    <li>Upload all files into a folder on your site (e.g., <code>/FroggerPWA/</code>).</li>
-    <li>Open it on your phone → Share → <strong>Add to Home Screen</strong>.</li>
-    <li>Open the app and tap <strong>Play</strong>.</li>
-  </ol>
-</section>
-</div>
+      <div class="grid2">
+        <div class="card">
+          <h2>Comandi</h2>
+          <ul>
+            <li><strong>Smartphone</strong>: D‑Pad su schermo oppure <strong>swipe</strong> (su/giù/sinistra/destra).</li>
+            <li><strong>Laptop</strong>: WASD o frecce. <code>Spazio/Invio</code> = Pausa/Start.</li>
+            <li><strong>Consiglio</strong>: aggiungi alla Home su iPhone per l’esperienza full‑screen.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>Punteggio &amp; Tempo</h2>
+          <ul>
+            <li>Arrivo in tana: <strong>+50</strong> e piccolo bonus tempo.</li>
+            <li>Mosca bonus: <strong>+100</strong> se entri nella tana dove sta volando.</li>
+            <li>Timer per vita: se scade il tempo, perdi una vita. Guarda la <strong>barra tempo</strong> sotto al gioco.</li>
+            <li>Hi‑Score: salvato in locale (visibile nella HUD).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h2>Ostacoli (Strada)</h2>
+          <ul>
+            <li><strong>Auto e camion</strong>: ti eliminano al contatto. Studia il ritmo delle corsie: muoviti a scatti, non restare in mezzo.</li>
+            <li><strong>Consiglio</strong>: prendi posizione <em>sulla linea sicura</em> (fascia blu) prima di affrontare il fiume.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>Ostacoli (Fiume)</h2>
+          <ul>
+            <li><strong>Tronchi</strong>: sicuri. Ti trasportano nella loro direzione—compensa con movimenti laterali.</li>
+            <li><strong>Tartarughe</strong>: a <em>intermittenza</em>. Quando si immergono non sono sicure.</li>
+            <li><strong>Bordi</strong>: se scivoli fuori dallo schermo, perdi la vita.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Tane &amp; Bonus</h2>
+        <ul>
+          <li><strong>Occupate</strong>: non puoi riutilizzarle (entrare su una tana già presa = morte).</li>
+          <li><strong>Mosca bonus mobile</strong>: vola tra le tane libere; se entri nella sua tana ottieni +100.</li>
+          <li><strong>Coccodrilli (opzionale)</strong>: alcune tane possono essere presidiate da un coccodrillo. <em>Bocca aperta</em> = pericolo (morte), <em>bocca chiusa</em> = sicuro per entrare. Se l’opzione è attiva, osserva il ritmo di apertura/chiusura.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Strategie per vincere</h2>
+        <ul>
+          <li><strong>Osserva prima</strong>: due secondi di studio risparmiano vite. Memorizza direzioni e velocità delle corsie.</li>
+          <li><strong>Verticale a scatti</strong>: sali quando hai spazio; usa il movimento laterale sui tronchi per allinearti alla tana.</li>
+          <li><strong>Gestione del tempo</strong>: non inseguire ogni bonus; meglio una tana sicura che perdere una vita sul tempo.</li>
+          <li><strong>Distribuisci le tane</strong>: punta prima a quelle più comode per ridurre il rischio di rimbalzo sulle occupate.</li>
+          <li><strong>Attendi la finestra</strong>: con tartarughe/coccodrilli, aspetta il ciclo “sicuro” e poi entra deciso.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Come affrontare i coccodrilli</h2>
+        <ul>
+          <li><strong>Osserva la bocca</strong>: entra solo quando è <em>chiusa</em>. Se è aperta, aspetta un ciclo.</li>
+          <li><strong>Gestisci il tempo</strong>: non fissarti su un’unica tana con coccodrillo; se la finestra tarda, punta a un’altra tana libera.</li>
+          <li><strong>Allineamento</strong>: dalla fascia sicura allineati in verticale alla tana desiderata prima di saltare nel fiume.</li>
+        </ul>
+      </div>
+
+      <div class="card muted">
+        © 2025 pezzaliAPP — MIT — Tributo didattico, non affiliato a Konami.
+      </div>
+    </div>
+
+    <div id="en" style="display:none">
+      <div class="card">
+        <h2>Goal</h2>
+        <p>Guide the frog to the <strong>5 home slots</strong> at the top, crossing the <em>road</em> and the <em>river</em>. Fill all homes to advance to the next level.</p>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h2>Controls</h2>
+          <ul>
+            <li><strong>Smartphone</strong>: on‑screen D‑Pad or <strong>swipe</strong> (up/down/left/right).</li>
+            <li><strong>Laptop</strong>: WASD or arrows. <code>Space/Enter</code> = Pause/Start.</li>
+            <li><strong>Tip</strong>: add to Home Screen on iPhone for a full‑screen experience.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>Scoring &amp; Time</h2>
+          <ul>
+            <li>Home reached: <strong>+50</strong> and a small time bonus.</li>
+            <li>Bonus fly: <strong>+100</strong> if you enter the home where it’s flying.</li>
+            <li>Per‑life timer: if it hits zero, you lose a life. Watch the <strong>time bar</strong> below the game.</li>
+            <li>Hi‑Score: saved locally (shown in the HUD).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h2>Obstacles (Road)</h2>
+          <ul>
+            <li><strong>Cars & trucks</strong>: any hit is fatal. Learn each lane rhythm; move in bursts, don’t idle mid‑lane.</li>
+            <li><strong>Tip</strong>: use the <em>safe strip</em> (blue band) to plan your river crossing.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>Obstacles (River)</h2>
+          <ul>
+            <li><strong>Logs</strong>: safe; they carry you—compensate with lateral moves.</li>
+            <li><strong>Turtles</strong>: <em>intermittent</em>. When submerged they’re unsafe.</li>
+            <li><strong>Edges</strong>: falling off‑screen is a lost life.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Homes &amp; Bonuses</h2>
+        <ul>
+          <li><strong>Occupied</strong>: can’t reuse (landing on a filled home = death).</li>
+          <li><strong>Moving bonus fly</strong>: travels across empty homes; land where it is to get +100.</li>
+          <li><strong>Crocodiles (optional)</strong>: some homes may be guarded by a croc. <em>Mouth open</em> = danger (death), <em>mouth closed</em> = safe to land. If enabled, watch its open/close cycle.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Winning Tips</h2>
+        <ul>
+          <li><strong>Observe first</strong>: two seconds of study save lives. Memorize lane directions & speeds.</li>
+          <li><strong>Step upward</strong>: climb when you see a window; use lateral moves on logs to align with a home.</li>
+          <li><strong>Time management</strong>: don’t chase every bonus; a safe home beats a timeout.</li>
+          <li><strong>Spread homes</strong>: fill the easiest first to reduce bounce‑back risk on occupied homes.</li>
+          <li><strong>Wait for the window</strong>: with turtles/crocs, enter only during the “safe” phase.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Come affrontare i coccodrilli</h2>
+        <ul>
+          <li><strong>Osserva la bocca</strong>: entra solo quando è <em>chiusa</em>. Se è aperta, aspetta un ciclo.</li>
+          <li><strong>Gestisci il tempo</strong>: non fissarti su un’unica tana con coccodrillo; se la finestra tarda, punta a un’altra tana libera.</li>
+          <li><strong>Allineamento</strong>: dalla fascia sicura allineati in verticale alla tana desiderata prima di saltare nel fiume.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>How to deal with crocodiles</h2>
+        <ul>
+          <li><strong>Watch the mouth</strong>: land only when it’s <em>closed</em>. If it’s open, wait for the next cycle.</li>
+          <li><strong>Manage time</strong>: don’t tunnel-vision a single croc home; switch to another empty home if the window delays.</li>
+          <li><strong>Alignment</strong>: from the safe strip, align vertically with the target home before jumping into the river.</li>
+        </ul>
+      </div>
+
+      <div class="card muted">
+        © 2025 pezzaliAPP — MIT — Educational tribute, not affiliated with Konami.
+      </div>
+    </div>
+  </div>
 
 <script>
 function setLang(code){
   document.getElementById('it').style.display = (code==='it')?'block':'none';
   document.getElementById('en').style.display = (code==='en')?'block':'none';
+  document.documentElement.lang = code;
 }
 </script>
 </body>

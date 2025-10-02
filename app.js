@@ -26,6 +26,7 @@
   let lanes = [];
   let lastTime = 0;
   let fly = null; // bonus fly at home slots
+  let croc = null; // crocodile guarding a home (one at a time)
 
   // HUD
   const $ = sel => document.querySelector(sel);
@@ -164,10 +165,19 @@
       const slotW = COLS / slots;
       const idx = Math.floor(frog.col / slotW);
       if (!homes.includes(idx)){
+        // Crocodile check: if mouth open -> death
+        let crocOpen = false;
+        if (croc && croc.slot === idx){
+          const mouth = Math.sin(croc.phase||0);
+          crocOpen = mouth > 0.3; // threshold for open
+        }
+        if (crocOpen){ frogDies(); return; }
+        // Safe to land
         homes.push(idx);
         points += 50;
         timeLeft = Math.min(timeLeft+10, 60);
         if (fly && fly.slot === idx){ points += 100; fly = null; }
+        if (croc && croc.slot === idx){ croc = null; }
         // back to start
         frog.row = START_ROW; frog.col = Math.floor(COLS/2);
         if (homes.length >= 5){
@@ -321,6 +331,22 @@
       // If all homes filled, remove fly
       if (freeSlots.length===0) fly = null;
     }
+
+    // Crocodile spawn/animate/despawn (one at a time)
+    if (!croc){
+      if (Math.random() < 0.001 && freeSlots.length){
+        const slot = freeSlots[Math.floor(Math.random()*freeSlots.length)];
+        croc = { slot, phase: Math.random()*Math.PI*2, t: 8 + Math.random()*6 };
+      }
+    } else {
+      // If home becomes filled, remove croc
+      if (homes.includes(croc.slot)) croc = null;
+      else {
+        croc.phase += dt * 3.1415/1.0; // ~2s per cycle
+        croc.t -= dt;
+        if (croc.t <= 0) croc = null;
+      }
+    }
   }
 
   function rect(x,y,w,h, color){ ctx.fillStyle = color; ctx.fillRect(x,y,w,h); }
@@ -374,6 +400,31 @@
       ctx.lineTo(fx - s, fy);
       ctx.closePath();
       ctx.fill();
+    }
+
+    // Crocodile (home guard): green head, red mouth when open
+    if (croc){
+      const slotW = W/5;
+      const cx = croc.slot*slotW + slotW/2;
+      const x = cx - TILE*1;
+      const y = TILE*0.2;
+      const w = TILE*2;
+      const h = TILE*1.6;
+      // Head
+      ctx.fillStyle = '#1aa94f';
+      ctx.fillRect(x+2, y+2, w-4, h-4);
+      // Mouth animation
+      const open = Math.sin(croc.phase||0) > 0.3;
+      ctx.fillStyle = open ? '#ff4d6d' : '#0b1536';
+      const mh = open ? h*0.45 : h*0.12;
+      ctx.fillRect(x+6, y+h*0.55, w-12, mh);
+      // Eyes
+      ctx.fillStyle = '#e9f1ff';
+      ctx.fillRect(x+w*0.25, y+h*0.18, 6, 6);
+      ctx.fillRect(x+w*0.65, y+h*0.18, 6, 6);
+      ctx.fillStyle = '#0a1228';
+      ctx.fillRect(x+w*0.25+2, y+h*0.18+2, 2, 2);
+      ctx.fillRect(x+w*0.65+2, y+h*0.18+2, 2, 2);
     }
   }
 
