@@ -25,6 +25,8 @@ canvas#game{width:100%;height:auto;display:block;background:#061023;border:2px s
 .drawer{position:fixed;inset:0 0 0 auto;width:min(420px,100%);transform:translateX(102%);transition:.25s ease;background:#0b1330;border-left:1px solid #1a2655;z-index:30}
 .drawer.open{transform:translateX(0)}
 .drawer-inner{padding:16px;display:flex;flex-direction:column;gap:10px}
+.badge{display:inline-block;min-width:46px;text-align:center;padding:6px 8px;border-radius:10px;border:1px solid #263159;background:#101a3a;color:#e9f1ff;font-weight:700}
+.badge.warn{background:#3a1a10;color:#ffd7d1;border-color:#5a2720}
 @media (min-width:700px){
   .container{max-width:640px}
   .dir{width:72px;height:72px}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>README — Frogger PWA (Tributo 1981)</title>
+  <style>
+    :root{--bg:#0a1228;--ink:#e9f1ff;--muted:#9db0d0;--card:#0f1834}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial;padding:16px}
+    header{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    h1{margin:0}
+    nav button{border:1px solid #263159;background:#111a3a;color:var(--ink);border-radius:999px;padding:8px 12px;font-weight:600}
+    section{margin-top:16px;background:var(--card);border:1px solid #1a2655;border-radius:12px;padding:16px}
+    h2{margin-top:0}
+    .muted{color:var(--muted)}
+    .two{display:grid;grid-template-columns:1fr;gap:12px}
+    @media(min-width:820px){.two{grid-template-columns:1fr 1fr}}
+    a{color:#8ac6ff}
+  </style>
+</head>
+<body>
+<header>
+  <h1>🐸 Frogger — PWA (Tributo 1981)</h1>
+  <nav>
+    <button onclick="setLang('it')">IT</button>
+    <button onclick="setLang('en')">EN</button>
+  </nav>
+  <div class="muted">© 2025 pezzaliAPP — MIT — Tributo didattico, non affiliato a Konami.</div>
+</header>
+
+<div class="two">
+<section id="it">
+  <h2>Come si gioca</h2>
+  <ul>
+    <li>Obiettivo: porta la rana nelle <strong>5 tane</strong> in alto attraversando <em>strada</em> e <em>fiume</em>.</li>
+    <li>Controlli: <strong>D‑Pad</strong> su schermo o <strong>swipe</strong> (su/giù/sinistra/destra). Tastiera WASD / frecce su laptop.</li>
+    <li>Pausa: pulsante <strong>Pausa</strong> o <strong>Spazio/Invio</strong>.</li>
+    <li>Audio: si attiva dopo il primo tap per limiti di iOS.</li>
+  </ul>
+  <h2>Novità di questa versione</h2>
+  <ul>
+    <li><strong>Tartarughe che si immergono</strong>: quando sono sott’acqua non sono sicure!</li>
+    <li><strong>Mosca bonus</strong> nelle tane libere (vale +100 pt, scompare dopo pochi secondi).</li>
+    <li><strong>Timer per vita</strong>: se finisce il tempo, perdi una vita.</li>
+    <li><strong>Hi‑Score locale</strong> salvato in <code>localStorage</code>.</li>
+    <li><strong>Ottimizzazione mobile</strong>: PWA, offline-ready, full‑screen su iPhone.</li>
+  </ul>
+  <h2>Installazione</h2>
+  <ol>
+    <li>Metti i file su una cartella del tuo sito (es. <code>/FroggerPWA/</code>).</li>
+    <li>Apri l’indirizzo sullo smartphone → Condividi → <strong>Aggiungi alla Home</strong>.</li>
+    <li>Apri l’app e tocca <strong>Play</strong>.</li>
+  </ol>
+</section>
+
+<section id="en" style="display:none">
+  <h2>How to play</h2>
+  <ul>
+    <li>Goal: reach the <strong>5 home slots</strong> at the top by crossing the <em>road</em> and the <em>river</em>.</li>
+    <li>Controls: on‑screen <strong>D‑Pad</strong> or <strong>swipe</strong>. Keyboard WASD / arrows on laptop.</li>
+    <li>Pause: tap <strong>Pause</strong> or press <strong>Space/Enter</strong>.</li>
+    <li>Audio: enabled after the first tap due to iOS policies.</li>
+  </ul>
+  <h2>What’s new here</h2>
+  <ul>
+    <li><strong>Sinking turtles</strong>: unsafe while submerged.</li>
+    <li><strong>Bonus fly</strong> may appear in empty home slots (+100 pts, short lived).</li>
+    <li><strong>Per‑life timer</strong>: time out costs one life.</li>
+    <li><strong>Local hi‑score</strong> stored in <code>localStorage</code>.</li>
+    <li><strong>Mobile‑first PWA</strong>: offline‑ready, iPhone full‑screen.</li>
+  </ul>
+  <h2>Install</h2>
+  <ol>
+    <li>Upload all files into a folder on your site (e.g., <code>/FroggerPWA/</code>).</li>
+    <li>Open it on your phone → Share → <strong>Add to Home Screen</strong>.</li>
+    <li>Open the app and tap <strong>Play</strong>.</li>
+  </ol>
+</section>
+</div>
+
+<script>
+function setLang(code){
+  document.getElementById('it').style.display = (code==='it')?'block':'none';
+  document.getElementById('en').style.display = (code==='en')?'block':'none';
+}
+</script>
+</body>
+</html>

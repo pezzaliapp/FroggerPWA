@@ -1,11 +1,12 @@
 // Simple offline cache for Frogger PWA (MIT)
-const CACHE = 'frogger-pwa-v1';
+const CACHE = 'frogger-pwa-v2';
 const ASSETS = [
   './',
   './index.html',
   './style.css',
   './app.js',
   './manifest.webmanifest',
+  './readme.html',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/apple-touch-icon.png'

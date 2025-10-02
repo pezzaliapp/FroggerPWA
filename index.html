@@ -20,6 +20,7 @@
     <button id="drawerToggle" aria-label="Menu" class="icon-btn" title="Menu">☰</button>
     <h1>🐸 Frogger — pezzaliAPP</h1>
     <div class="spacer"></div>
+    <a id="btnReadme" class="pill-btn" href="readme.html" rel="noopener">README</a>
     <button id="btnInstall" class="pill-btn" hidden>Installa</button>
   </header>
 
@@ -28,9 +29,9 @@
       <h2>Frogger (1981, Konami) — Tributo didattico</h2>
       <p>Attraversa <strong>strada</strong> e <strong>fiume</strong>, raggiungi le 5 tane. Ottimizzato per iPhone e smartphone.</p>
       <ul>
-        <li>🎮 <b>Comandi:</b> D‑Pad oppure swipe. Start ▶︎</li>
+        <li>🎮 <b>Comandi:</b> D-Pad oppure swipe. Start ▶︎</li>
         <li>⏸️ Pausa con il pulsante • Audio dopo il primo tap</li>
-        <li>📱 Aggiungi alla Home per esperienza full‑screen</li>
+        <li>📱 Aggiungi alla Home per esperienza full-screen</li>
         <li>🛜 Funziona offline (PWA + Service Worker)</li>
       </ul>
       <button id="closeDrawer" class="pill-btn">Chiudi</button>
@@ -78,10 +79,7 @@
     });
     installBtn?.addEventListener('click', async () => {
       installBtn.hidden = true;
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt = null;
-      }
+      if (deferredPrompt) {        deferredPrompt.prompt();        deferredPrompt = null;      }
     });
 
     // Drawer
