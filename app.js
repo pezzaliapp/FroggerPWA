@@ -291,12 +291,36 @@
       }
     }
 
-    // Random bonus fly
-    if (!fly && Math.random() < 0.002){
-      const free = [0,1,2,3,4].filter(i=>!homes.includes(i));
-      if (free.length){ fly = { slot: free[Math.floor(Math.random()*free.length)], t: 5 }; }
+    // Random moving bonus fly: travels between empty home slots
+    const freeSlots = [0,1,2,3,4].filter(i=>!homes.includes(i));
+    if (!fly && Math.random() < 0.002 && freeSlots.length){ 
+      const start = freeSlots[Math.floor(Math.random()*freeSlots.length)];
+      let targetChoices = freeSlots.filter(s=>s!==start);
+      const target = targetChoices.length ? targetChoices[Math.floor(Math.random()*targetChoices.length)] : start;
+      fly = { slot:start, target:target, p:0, speed:0.35 }; // p in [0,1]
     }
-    if (fly){ fly.t -= dt; if (fly.t<=0) fly=null; }
+    if (fly){
+      // If current target becomes filled, retarget
+      if (homes.includes(fly.target)){
+        const choices = [0,1,2,3,4].filter(s=>!homes.includes(s) && s!==fly.slot);
+        if (choices.length) fly.target = choices[Math.floor(Math.random()*choices.length)];
+      }
+      // Interpolate
+      fly.p += dt * fly.speed;
+      if (fly.p >= 1){
+        fly.slot = fly.target;
+        fly.p = 0;
+        const choices = [0,1,2,3,4].filter(s=>!homes.includes(s) && s!==fly.slot);
+        if (choices.length){
+          fly.target = choices[Math.floor(Math.random()*choices.length)];
+        } else {
+          // No other free slots: keep hovering or disappear after a while
+          fly.target = fly.slot;
+        }
+      }
+      // If all homes filled, remove fly
+      if (freeSlots.length===0) fly = null;
+    }
   }
 
   function rect(x,y,w,h, color){ ctx.fillStyle = color; ctx.fillRect(x,y,w,h); }
@@ -334,11 +358,14 @@
       roundRect(cx - TILE*1, TILE*0.2, TILE*2, TILE*1.6, 6, '#2dd36f');
     });
 
-    // Fly bonus mark
+    // Fly bonus mark (moving between empty home slots)
     if (fly){
       const slotW = W/5;
-      const cx = fly.slot*slotW + slotW/2;
-      const fx = cx; const fy = TILE*0.95; const s = Math.max(3, Math.floor(TILE*0.12));
+      const cxA = fly.slot*slotW + slotW/2;
+      const cxB = fly.target*slotW + slotW/2;
+      const fx = cxA + (cxB - cxA) * (fly.p||0);
+      const fy = TILE*0.95; 
+      const s = Math.max(3, Math.floor(TILE*0.12));
       ctx.fillStyle = '#ffd166';
       ctx.beginPath();
       ctx.moveTo(fx, fy - s);
