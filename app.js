@@ -19,6 +19,8 @@
   let lives = 3;
   let hiscore = Number(localStorage.getItem('frogger.hiscore')||0);
   let timeLeft = 45; // seconds per life
+  let maxTime = 45;
+  const timeBar = document.getElementById('timeBar');
 
   let frog = null;
   let lanes = [];
@@ -40,6 +42,12 @@
     pointsEl.innerHTML = `Punti ${String(points).padStart(4,'0')} · Hi ${String(hiscore).padStart(4,'0')} · <span id='time' class='badge'>${Math.ceil(timeLeft)}</span>`;
     timerBadge = document.getElementById('time');
     if (timerBadge){ timerBadge.className = 'badge' + (timeLeft<=10? ' warn':'' ); }
+    // Progress bar update
+    if (timeBar){
+      const pct = Math.max(0, Math.min(1, timeLeft / maxTime));
+      timeBar.style.width = (pct*100).toFixed(1) + '%';
+      timeBar.className = 'bar' + (timeLeft<=10? ' warn':'' );
+    }
   }
 
   // Sounds (simple, start after first tap to comply with iOS)
@@ -117,7 +125,8 @@
     resetHomes();
     makeLanes();
     resetFrog();
-    timeLeft = Math.max(30, 45 - (level-1)*3);
+    maxTime = Math.max(30, 45 - (level-1)*3);
+    timeLeft = maxTime;
     fly = null;
   }
 
@@ -393,7 +402,7 @@
 
     if (running && !paused){
       timeLeft -= dt;
-      if (timeLeft <= 0){ frogDies(); timeLeft = Math.max(30, 45 - (level-1)*3); }
+      if (timeLeft <= 0){ frogDies(); timeLeft = maxTime; }
     }
     updateHud();
 

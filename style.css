@@ -31,3 +31,9 @@ canvas#game{width:100%;height:auto;display:block;background:#061023;border:2px s
   .container{max-width:640px}
   .dir{width:72px;height:72px}
 }
+
+
+/* Visual countdown bar */
+.timer{margin-top:6px;height:10px;background:#0e1634;border:1px solid #22305f;border-radius:999px;overflow:hidden}
+.timer .bar{height:100%;width:100%;background:linear-gradient(90deg,#2dd36f,#ffd166);transition:width .25s linear}
+.timer .bar.warn{background:linear-gradient(90deg,#ff9f1c,#ff4d6d)}
